@@ -7,7 +7,7 @@ export KUBECONFIG=$HOME/admin.conf
 
 # kubectl taint nodes --all node-role.kubernetes.io/master-
 # add flannel network
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel-rbac.yml
+kubectl apply -f /tmp/resource/kube-flannel-rbac.yaml
 kubectl apply -f /tmp/resource/flannel.yaml
 # add dashboard ui, localhost:8001/ui
 # kubectl create -f https://git.io/kube-dashboard
