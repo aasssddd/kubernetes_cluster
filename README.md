@@ -41,3 +41,17 @@ vagrant up new_node_name
 vagrant ssh new_node_name
 sudo kubeadm join --token=<token> 11.22.33.44:6443
 ```
+
+## Shutdown & Restart ##
+After kubernetes cluster environment has bootstrapped, you can shutdown with
+```bash
+vagrant halt
+```
+And start with
+```bash
+vagrant up --no-provision #with --no-provision parameter to avoid run bootstrap command again
+```
+Also, reload with
+```bash
+vagrant reload --no-provision
+```
