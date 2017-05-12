@@ -1,4 +1,4 @@
-# Install Kubernetes #
+# Install Kubernetes cluster#
 1. install virtualbox 
 2. instal vagrant
 3. run
@@ -31,3 +31,13 @@ kubectl get nodes # check if all nodes are ready
 kubectl get pod --all-namespaces # check if all pod are running
 ```
 
+## More node ##
+1. edit Vagrantfile to add VM section, bootstrap node with
+```bash
+vagrant up new_node_name
+```
+2. join current kubernetes cluster
+```bash
+vagrant ssh new_node_name
+sudo kubeadm join <token> <api_server_host>:<api_server_port>
+```

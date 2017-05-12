@@ -77,10 +77,10 @@ spec:
           initialDelaySeconds: 30
           timeoutSeconds: 30
         env:
-        # - name: KUBERNETES_SERVICE_HOST
-        #   value: "11.22.33.44"
-        # - name: KUBERNETES_SERVICE_PORT
-        #  value: "6443"
+        - name: KUBERNETES_SERVICE_HOST
+          value: "11.22.33.44"
+        - name: KUBERNETES_SERVICE_PORT
+         value: "6443"
       serviceAccountName: kubernetes-dashboard
       # Comment the following tolerations if Dashboard must not be deployed on master
       tolerations:
