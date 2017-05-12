@@ -1,6 +1,6 @@
-# Install Kubernetes cluster#
+# Install Kubernetes cluster #
 1. install virtualbox 
-2. instal vagrant
+2. install vagrant
 3. run
 ```bash
 vagrant up
@@ -39,5 +39,5 @@ vagrant up new_node_name
 2. join current kubernetes cluster
 ```bash
 vagrant ssh new_node_name
-sudo kubeadm join <token> <api_server_host>:<api_server_port>
+sudo kubeadm join --token=<token> 11.22.33.44:6443
 ```
