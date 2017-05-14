@@ -14,7 +14,9 @@ apt-get -y install \
     apt-transport-https \
     ca-certificates \
     curl \
-    software-properties-common
+    software-properties-common \
+    traceroute \
+    iftop
 
 sudo wget -qO- https://get.docker.com/ | sh
 
@@ -24,3 +26,6 @@ sudo wget -qO- https://get.docker.com/ | sh
 # Install docker if you don't have it already.
 apt-get install -y docker-engine
 apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+
+# disable firewall
+sudo ufw disable

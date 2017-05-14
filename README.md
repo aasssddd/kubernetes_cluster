@@ -23,6 +23,40 @@ vagrant ssh kube-node
 sudo kubeadm join --token=<token> 11.22.33.44:6443
 ```
 
+## Manual Steps ##
+1. edit /etc/kubernetes/manifest/kube-apiserver.yaml at master node with sudo
+```bash
+sudo nano /etc/kubernetes/manifest/kube-apiserver.yaml
+```
+replace --advertise-address and livenessProbe/httpGet/host to 11.22.33.44, and make sure --secure-port and /livenessProbe/httpGet/port are both 6443
+
+2. add kube-dns to DNS nameservers, first find kube-dns service by:
+```bash
+kubectl -n kube-system describe service kube-dns
+```
+then you should get name server's IP address, in my environment is 10.96.0.10
+```language
+Name:           kube-dns
+Namespace:      kube-system
+Labels:         k8s-app=kube-dns
+            kubernetes.io/cluster-service=true
+            kubernetes.io/name=KubeDNS
+Annotations:        <none>
+Selector:       k8s-app=kube-dns
+Type:           ClusterIP
+IP:         10.96.0.10
+Port:           dns 53/UDP
+Endpoints:      10.244.0.9:53
+Port:           dns-tcp 53/TCP
+Endpoints:      10.244.0.9:53
+Session Affinity:   None
+Events:         <none>
+```
+edit /etc/resolv.conf and add namespace < dns - ip >
+```bash
+echo "nameserver 10.96.0.10" >> /etc/resolv.conf
+```
+
 ## Verify installation ##
 1. login kube-master and all nodes are ready
 ```bash
@@ -30,6 +64,18 @@ vagrant ssh kube-master
 kubectl get nodes # check if all nodes are ready
 kubectl get pod --all-namespaces # check if all pod are running
 ```
+
+2. deploy /tmp/resource/demo.yaml and /tmp/resource/demo-service.yaml by
+```bash
+vagrant ssh kube-master
+kubectl apply -f /tmp/resource/demo.yaml
+kubectl apply -f /tmp/resource/demo-service.yaml
+```
+
+3. get cluster ip and link to it
+
+### Good Luck! ###
+
 
 ## More node ##
 1. edit Vagrantfile to add VM section, bootstrap node with
