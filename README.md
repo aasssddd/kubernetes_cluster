@@ -72,12 +72,43 @@ kubectl apply -f /tmp/resource/demo.yaml
 kubectl apply -f /tmp/resource/demo-service.yaml
 ```
 
-3. get cluster ip and link to it
+3. get service
+```bash
+> kubectl describe service nginxservice
+Name:           nginxservice
+Namespace:      default
+Labels:         name=nginxservice
+Annotations:    kubectl.kubernetes.io/last-applied-configuration=...
+Selector:       app=nginx
+Type:           NodePort
+IP:         10.100.172.146
+Port:           http    80/TCP
+NodePort:       http    31212/TCP
+Endpoints:      10.244.1.38:80,10.244.2.9:80
+Session Affinity:   None
+Events:         <none>
+```
+
+4. hit the main page:
+```bash
+curl http://10.100.172.146
+```
 
 ### Good Luck! ###
 
 
-## More node ##
+## Appendix ##
+
+### Kubernetes Dashboard ###
+
+```bash
+vagrant ssh kube-master
+kubectl apply -f /tmp/resource/dashboard.yaml
+```
+
+
+### More Node ###
+
 1. edit Vagrantfile to add VM section, bootstrap node with
 ```bash
 vagrant up new_node_name
