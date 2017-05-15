@@ -11,7 +11,7 @@
 Vagrant.configure("2") do |config|
   
   # default provision command
-  config.vm.provision "shell", path: "common.sh", env: {"AWS_ACCESS_KEY_ID" => ENV["AWS_ACCESS_KEY_ID"], "AWS_SECRET_ACCESS_KEY" => ENV["AWS_SECRET_ACCESS_KEY", "AWS_DEFAULT_REGION" => ENV["AWS_DEFAULT_REGION"]]}
+  config.vm.provision "shell", path: "common.sh", env: {"AWS_ACCESS_KEY_ID" => ENV["AWS_ACCESS_KEY_ID"], "AWS_SECRET_ACCESS_KEY" => ENV["AWS_SECRET_ACCESS_KEY"], "AWS_DEFAULT_REGION" => ENV["AWS_DEFAULT_REGION"]}
   
   # if you want to add aws ecr to your docker aws registry, please comment out default provision command and uncomment next line: 
   # config.vm.provision "shell", path: "common.sh", args: "--enable-aws-ecr", env: {"AWS_ACCESS_KEY_ID" => ENV["AWS_ACCESS_KEY_ID"], "AWS_SECRET_ACCESS_KEY" => ENV["AWS_SECRET_ACCESS_KEY", "AWS_DEFAULT_REGION" => ENV["AWS_DEFAULT_REGION"]]}
