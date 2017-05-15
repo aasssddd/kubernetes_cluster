@@ -106,6 +106,23 @@ vagrant ssh kube-master
 kubectl apply -f /tmp/resource/dashboard.yaml
 ```
 
+### Allow pull image from AWS ECR ###
+First add AWS Credentials to ENV:
+```language
+export AWS_ACCESS_KEY_ID = your aws access key id
+export AWS_SECRET_ACCESS_KEY = your aws secret access key
+export AWS_DEFAULT_REGION = default region
+```
+Open Vagrantfile and comment out default provisioner, uncomment provisioner with args --enable-aws-ecr:
+```language
+# default provision command
+# config.vm.provision "shell", path: "common.sh", env: {"AWS_ACCESS_KEY_ID" => ENV["AWS_ACCESS_KEY_ID"], "AWS_SECRET_ACCESS_KEY" => ENV["AWS_SECRET_ACCESS_KEY", "AWS_DEFAULT_REGION" => ENV["AWS_DEFAULT_REGION"]]}
+  
+# if you want to add aws ecr to your docker aws registry, please comment out default provision command and uncomment next line: 
+config.vm.provision "shell", path: "common.sh", args: "--enable-aws-ecr", env: {"AWS_ACCESS_KEY_ID" => ENV["AWS_ACCESS_KEY_ID"], "AWS_SECRET_ACCESS_KEY" => ENV["AWS_SECRET_ACCESS_KEY", "AWS_DEFAULT_REGION" => ENV["AWS_DEFAULT_REGION"]]}
+...
+...
+```
 
 ### More Node ###
 

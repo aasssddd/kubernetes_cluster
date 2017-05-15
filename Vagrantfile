@@ -6,9 +6,15 @@
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 
+
+
 Vagrant.configure("2") do |config|
- 
-  config.vm.provision "shell", path: "common.sh"
+  
+  # default provision command
+  config.vm.provision "shell", path: "common.sh", env: {"AWS_ACCESS_KEY_ID" => ENV["AWS_ACCESS_KEY_ID"], "AWS_SECRET_ACCESS_KEY" => ENV["AWS_SECRET_ACCESS_KEY", "AWS_DEFAULT_REGION" => ENV["AWS_DEFAULT_REGION"]]}
+  
+  # if you want to add aws ecr to your docker aws registry, please comment out default provision command and uncomment next line: 
+  # config.vm.provision "shell", path: "common.sh", args: "--enable-aws-ecr", env: {"AWS_ACCESS_KEY_ID" => ENV["AWS_ACCESS_KEY_ID"], "AWS_SECRET_ACCESS_KEY" => ENV["AWS_SECRET_ACCESS_KEY", "AWS_DEFAULT_REGION" => ENV["AWS_DEFAULT_REGION"]]}
   config.vm.define "kube-master" do |master|
     master.vm.box = "ubuntu/xenial64"
     master.vm.box_check_update = false
