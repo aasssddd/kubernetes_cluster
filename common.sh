@@ -1,16 +1,15 @@
-# common.sh
-sudo su -
-apt-get update && apt-get install -y apt-transport-https wget
+#!/bin/bash
+sudo apt-get update && apt-get install -y apt-transport-https wget
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
+sudo cat <<EOF >/etc/apt/sources.list.d/kubernetes.list
 deb http://apt.kubernetes.io/ kubernetes-xenial main
 EOF
-apt-get update
-apt-get -y install \
+sudo apt-get update
+sudo apt-get -y install \
     linux-image-extra-$(uname -r) \
     linux-image-extra-virtual
 
-apt-get -y install \
+sudo apt-get -y install \
    apt-transport-https \
    ca-certificates \
    curl \
@@ -21,13 +20,13 @@ apt-get -y install \
 sudo wget -qO- https://get.docker.com/ | sh
 
 # Install docker if you don't have it already.
-apt-get install -y docker-engine
-apt-get install -y kubelet kubeadm kubectl kubernetes-cni
+sudo apt-get install -y docker-engine
+sudo apt-get install -y kubelet kubeadm kubectl kubernetes-cni
 
 if [[ $1 == "--enable-aws-ecr" ]]; then
 	
 #statements
-apt-get install -y awscli golang git make
+sudo apt-get install -y awscli golang git make
 # add AWS credential to environment variable
 mkdir ~/.aws
 touch ~/.aws/credentials
@@ -42,7 +41,7 @@ cat <<EOF > $HOME/.aws/config
 [default]
 region=$AWS_DEFAULT_REGION
 EOF
-chmod 600 ~/.aws/config
+sudo chmod 600 ~/.aws/config
 
 # clone into local
 git clone https://github.com/awslabs/amazon-ecr-credential-helper.git ~/source/src/github.com/awslabs/amazon-ecr-credential-helper

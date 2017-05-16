@@ -24,6 +24,7 @@ Vagrant.configure("2") do |config|
     master.vm.network "forwarded_port", guest: 9090, host: 9090
     master.vm.network "public_network"
     master.vm.network "private_network", ip: "11.22.33.44"
+    master.vm.provision "file", source: "./resources", destination: "~/"
     master.vm.provision "shell", path: "script-master.sh"
     master.vm.hostname = "master"
     master.vm.synced_folder "resources/", "/tmp/resources"
